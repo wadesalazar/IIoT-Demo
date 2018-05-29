@@ -27,15 +27,41 @@ if rebuild dist https://github.com/TheThingSystem/steward/wiki/Bootstrapping-the
 
 GPIO https://www.linux.com/learn/getting-started-beaglebone-black-1ghz-arm-linux-machine-45
 
+
+## Bluetooth LE 
+
+BT Dongle 
+https://www.asus.com/us/Networking/USBBT400/
+
 Get Bluetooth dongle running:
+https://urbanjack.wordpress.com/2014/02/26/bluetooth-low-energy-ble-on-raspberry-pi-with-asus-bt-400/
+
+Older angstrom linux guides ( some steps still apply )
+
 https://www.cs.sfu.ca/CourseCentral/433/bfraser/other/2015-student-howtos/NXTBrickViaBlueTooth.pdf
 edit connman config
 https://olsonetworks.wordpress.com/2014/01/03/enabling-bluetooth-on-your-beaglebone-black/
 end to end
 http://www.zephyr-labs.com/?p=87
 
-BT Dongle 
-https://www.asus.com/us/Networking/USBBT400/
+I was able to use 
+apt-get install bluetooth libbluetooth-dev bluez-utils
+confirm driver is present and loaded 
+modprobe -v btusb
+confirm Usb doggle shows up at device
+lsusb
+add device to bluez
+echo "0b05 17cb" >> /sys/bus/usb/drivers/btusb/new_id
+edit /etc/default/bluetooth
+restart bluetooth 
+invoke-rc.d bluetooth restart
+check for device
+hcitool dev
+show device details
+hciconfig -a
+
+
+
 
 
 Interesting side note 
