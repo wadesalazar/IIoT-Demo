@@ -6,7 +6,7 @@ For IoT applications
 
 * Beaglebone Black https://beagleboard.org/black. Think of this as a open source ras. pi
 * TI Sensor Tag - these are little blue tooth LE dongles packed with sensors.  Great for prototyping 
-* USB Bluetooth LE adapter
+* USB Bluetooth LE adapter ( https://www.asus.com/us/Networking/USBBT400/ )
 
 These combine nicely into what a intelligent edge device might look like.  
 The BBB serves as a local aggregator for the sensor tags performing operations, filters etc on incoming signals
