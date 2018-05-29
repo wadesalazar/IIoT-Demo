@@ -7,6 +7,7 @@ Home: https://beagleboard.org/black
 Wiki: https://elinux.org/Beagleboard:BeagleBoneBlack
 https://eewiki.net/display/linuxonarm/BeagleBone+Black
 
+Get a shell https://ofitselfso.com/BeagleNotes/HowToConnectBeagleboneBlackToTheInternetViaUSB.php
 
 Rapid prototype via "Bonescript"
 http://beagleboard.org/Support/BoneScript
