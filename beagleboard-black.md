@@ -61,6 +61,59 @@ show device details
 hciconfig -a
 
 
+After each reboot it seems I have to 
+modprobe -v btusb
+echo "0b05 17cb" >> /sys/bus/usb/drivers/btusb/new_id
+invoke-rc.d bluetooth restart
+
+## Reading data 
+
+List the available devices with LE capabilities via
+
+hcitool lescan
+
+LE Scan ...
+45:86:11:CB:F0:18 (unknown)
+45:86:11:CB:F0:18 (unknown)
+BC:6A:29:AB:2B:98 (unknown)
+BC:6A:29:AB:2B:98 SensorTag
+E7:18:B4:6F:37:11 (unknown)
+E7:18:B4:6F:37:11 Seos
+51:FF:D5:F0:DF:F3 (unknown)
+
+Look for the SensorTag device and take note of the device ID 
+
+Connect to the SensorTag device 
+hcitool lecc BC:6A:29:AB:2B:98
+
+Gatttool makes reading data easy
+http://manpages.ubuntu.com/manpages/bionic/man1/gatttool.1.html
+
+gatttool -b BC:6A:29:AB:2B:98 -I
+
+The console changes 
+[   ][BC:6A:29:AB:2B:98][LE]>
+issue the 
+[   ][BC:6A:29:AB:2B:98][LE]> connect
+the console updates again
+[CON][BC:6A:29:AB:2B:98][LE]>
+
+Gatttool can list the sensors available on the SensorTag 
+We can search for content by
+
+[CON][BC:6A:29:AB:2B:98][LE]> primary
+attr handle: 0x0001, end grp handle: 0x000b uuid: 00001800-0000-1000-8000-00805f9b34fb
+attr handle: 0x000c, end grp handle: 0x000f uuid: 00001801-0000-1000-8000-00805f9b34fb
+attr handle: 0x0010, end grp handle: 0x0022 uuid: 0000180a-0000-1000-8000-00805f9b34fb
+attr handle: 0x0023, end grp handle: 0x002a uuid: f000aa00-0451-4000-b000-000000000000
+....
+
+for a complete list of what these handles are can be found 
+http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User%27s_Guide#Gatt_Server
+
+[CON][BC:6A:29:AB:2B:98][LE]> char-read-hnd 0x000b
+[CON][BC:6A:29:AB:2B:98][LE]>
+Characteristic value/descriptor: 50 00 a0 00 00 00 e8 03
 
 
 
