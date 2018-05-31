@@ -38,32 +38,32 @@ I found the following adapter at Fry's for ~$10 https://www.asus.com/us/Networki
 
 insert the adapter and check usb for new devices
 
-''' 
-root@beaglebone:~# lsusb
+```
+lsusb
 Bus 001 Device 002: ID 0b05:17cb ASUSTek Computer, Inc.
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-'''
+```
 
 at first my device is not listed because the BBB i have has a broken USB host adapter.
 After rebooting (several  times) with the adapter plugged in it, eventually it gets dectected 
 
 Once the device is successfully attached via USB, load the Bluetooth driver 
-...
+```
 modprobe -v btusb
-...
+```
 
 Bluez does not recognize most USB adapters automattically so we must manually register the new device with bluez by catting the USB ID into the Bluez new_id file
-...
+```     
 echo "0b05 17cb" >> /sys/bus/usb/drivers/btusb/new_id
-...
+```
 
 The adapter should now be registered with Bluez and available.  Bluez enumerates each device starting at hci0, then hci1 etc
-...
+```
 hcitool dev
 Devices:
         hci0    5C:F3:70:8B:BE:AE
-...
+```
 
 ### Get Bluetooth dongle running
 https://urbanjack.wordpress.com/2014/02/26/bluetooth-low-energy-ble-on-raspberry-pi-with-asus-bt-400/
@@ -77,9 +77,8 @@ http://www.zephyr-labs.com/?p=87
 ## Reading data 
 
 List the available devices with LE capabilities via
-...
+```
 hcitool lescan
-
 LE Scan ...
 45:86:11:CB:F0:18 (unknown)
 45:86:11:CB:F0:18 (unknown)
@@ -88,7 +87,7 @@ BC:6A:29:AB:2B:98 SensorTag
 E7:18:B4:6F:37:11 (unknown)
 E7:18:B4:6F:37:11 Seos
 51:FF:D5:F0:DF:F3 (unknown)
-...
+```
 Look for the SensorTag device and take note of the device ID 
 
 Connect to the SensorTag device 
@@ -108,19 +107,20 @@ the console updates again
 
 Gatttool can list the sensors available on the SensorTag 
 We can search for content by
-...
+```
 [CON][BC:6A:29:AB:2B:98][LE]> primary
 attr handle: 0x0001, end grp handle: 0x000b uuid: 00001800-0000-1000-8000-00805f9b34fb
 attr handle: 0x000c, end grp handle: 0x000f uuid: 00001801-0000-1000-8000-00805f9b34fb
 attr handle: 0x0010, end grp handle: 0x0022 uuid: 0000180a-0000-1000-8000-00805f9b34fb
 attr handle: 0x0023, end grp handle: 0x002a uuid: f000aa00-0451-4000-b000-000000000000
-...
+```
 
 for a complete list of what these handles are can be found 
 http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User%27s_Guide#Gatt_Server
 
+```
 [CON][BC:6A:29:AB:2B:98][LE]> char-read-hnd 0x000b
 [CON][BC:6A:29:AB:2B:98][LE]>
 Characteristic value/descriptor: 50 00 a0 00 00 00 e8 03
-
+```
 
