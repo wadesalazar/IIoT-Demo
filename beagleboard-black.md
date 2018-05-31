@@ -17,13 +17,13 @@ Default linux dist is Debian, current verision 9.3
 ### Development
 
 Cross compiler information:
-https://www.linaro.org/downloads/ 
-https://eewiki.net/display/linuxonarm/BeagleBone+Black#BeagleBoneBlack-ARMCrossCompiler:GCC
-http://charette.no-ip.com:81/programming/2015-12-20_CrossCompiling/index.html
-http://www.ti.com/product/AM3358
-if older OS (Angstrom) https://datko.net/2013/05/06/cross-compiling-applications-for-the-beaglebone/
-http://wind.cs.purdue.edu/doc/crosscompile.html
-if rebuild dist https://github.com/TheThingSystem/steward/wiki/Bootstrapping-the-BeagleBone-Black
+* https://www.linaro.org/downloads/ 
+* https://eewiki.net/display/linuxonarm/BeagleBone+Black#BeagleBoneBlack-ARMCrossCompiler:GCC
+* http://charette.no-ip.com:81/programming/2015-12-20_CrossCompiling/index.html
+* http://www.ti.com/product/AM3358
+* if older OS (Angstrom) https://datko.net/2013/05/06/cross-compiling-applications-for-the-beaglebone/
++ http://wind.cs.purdue.edu/doc/crosscompile.html
+* if rebuild dist https://github.com/TheThingSystem/steward/wiki/Bootstrapping-the-BeagleBone-Black
 
 ### Working with IO
 GPIO https://www.linux.com/learn/getting-started-beaglebone-black-1ghz-arm-linux-machine-45
@@ -66,13 +66,13 @@ Devices:
 ```
 
 ### Get Bluetooth dongle running
-https://urbanjack.wordpress.com/2014/02/26/bluetooth-low-energy-ble-on-raspberry-pi-with-asus-bt-400/
-https://wiki.debian.org/BluetoothUser
+* https://urbanjack.wordpress.com/2014/02/26/bluetooth-low-energy-ble-on-raspberry-pi-with-asus-bt-400/
+* https://wiki.debian.org/BluetoothUser
 
 ### Older angstrom linux guides ( some steps still apply )
-https://www.cs.sfu.ca/CourseCentral/433/bfraser/other/2015-student-howtos/NXTBrickViaBlueTooth.pdf
-https://olsonetworks.wordpress.com/2014/01/03/enabling-bluetooth-on-your-beaglebone-black/
-http://www.zephyr-labs.com/?p=87
+* https://www.cs.sfu.ca/CourseCentral/433/bfraser/other/2015-student-howtos/NXTBrickViaBlueTooth.pdf
+* https://olsonetworks.wordpress.com/2014/01/03/enabling-bluetooth-on-your-beaglebone-black/
+* http://www.zephyr-labs.com/?p=87
 
 ## Reading data 
 
@@ -91,19 +91,18 @@ E7:18:B4:6F:37:11 Seos
 Look for the SensorTag device and take note of the device ID 
 
 Connect to the SensorTag device 
+```
 hcitool lecc BC:6A:29:AB:2B:98
-
+```
 Gatttool makes reading data easy
 http://manpages.ubuntu.com/manpages/bionic/man1/gatttool.1.html
 
+```
 gatttool -b BC:6A:29:AB:2B:98 -I
-
-The console changes 
-> [   ][BC:6A:29:AB:2B:98][LE]>
-issue the 
-> [   ][BC:6A:29:AB:2B:98][LE]> connect
-the console updates again
-> [CON][BC:6A:29:AB:2B:98][LE]>
+[   ][BC:6A:29:AB:2B:98][LE]>
+[   ][BC:6A:29:AB:2B:98][LE]> connect
+[CON][BC:6A:29:AB:2B:98][LE]>
+```
 
 Gatttool can list the sensors available on the SensorTag 
 We can search for content by
@@ -123,4 +122,3 @@ http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User%27s_Guide#Gatt_Ser
 [CON][BC:6A:29:AB:2B:98][LE]>
 Characteristic value/descriptor: 50 00 a0 00 00 00 e8 03
 ```
-
