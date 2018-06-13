@@ -58,6 +58,14 @@ Bluez does not recognize most USB adapters automattically so we must manually re
 echo "0b05 17cb" >> /sys/bus/usb/drivers/btusb/new_id
 ```
 
+There are two software packages to know 
+
+the first, hcitool is an abstraction of the tasks the radio performs 
+e.g. scan for devices, request additional informaiton from a device 
+
+The second gatttool is an abstraction of the tasks available for BLE
+e.g. read and write values read device properties 
+
 The adapter should now be registered with Bluez and available.  Bluez enumerates each device starting at hci0, then hci1 etc
 ```
 hcitool dev
@@ -122,3 +130,5 @@ http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User%27s_Guide#Gatt_Ser
 [CON][BC:6A:29:AB:2B:98][LE]>
 Characteristic value/descriptor: 50 00 a0 00 00 00 e8 03
 ```
+writes blocked by gatttool bug in my version 
+
