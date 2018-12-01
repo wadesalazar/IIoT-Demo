@@ -14,6 +14,10 @@ http://beagleboard.org/Support/BoneScript
 
 Default linux dist is Debian, current verision 9.3
 
+Helpful sites: 
+https://www.ofitselfso.com/BeagleNotes/BeagleNotes.php
+https://www.ofitselfso.com/BeagleNotes/HowToConnectBeagleboneBlackToTheInternetViaUSB.php
+
 ### Development
 
 Cross compiler information:
