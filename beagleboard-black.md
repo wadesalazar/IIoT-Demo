@@ -136,3 +136,41 @@ Characteristic value/descriptor: 50 00 a0 00 00 00 e8 03
 ```
 writes blocked by gatttool bug in my version 
 
+<h2>Wifi</h2>
+
+For whatever reason the ubuntu images for BBB use connman ... I believe the main stream network manager today is NetworkManager but who is splitting hairs 
+
+assuming your wireless adapter is up and running 
+ip a 
+should give an entry that looks like:
+
+8: wlan0: <NO-CARRIER,BROADCAST,MULTICAST,DYNAMIC,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether e0:cb:4e:a6:5b:12 brd ff:ff:ff:ff:ff:ff
+
+Connecting to a Wifi network with connman
+
+sudo connmanctl
+connmanctl> scan wifi
+connmanctl> servicesconnmanctl> services
+*AO Guest                wifi_e0cb4ea65b12_4775657374_managed_psk
+    ULh_Guest            wifi_e0cb4ea65b12_554c685f4775657374_managed_none
+    ULh_Private          wifi_e0cb4ea65b12_554c685f50726976617465_managed_ieee8021x
+    ULh_Staff            wifi_e0cb4ea65b12_554c685f5374616666_managed_psk
+    Mobile               wifi_e0cb4ea65b12_4d6f62696c65_managed_psk
+    ilaw                 wifi_e0cb4ea65b12_696c6177_managed_psk
+    wpa2                 wifi_e0cb4ea65b12_77706132_managed_ieee8021xsf
+dsfs
+
+connmanctl> connect wifi_e0cb4ea65b12_4775657374_managed_psk
+Passphrase? ****
+Connected wifi_e0cb4ea65b12_4775657374_managed_psk
+connmanctl> quit
+
+now ip a should show 
+
+8: wlan0: <BROADCAST,MULTICAST,DYNAMIC,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether e0:cb:4e:a6:5b:12 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.44/20 brd 192.168.15.255 scope global wlan0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e2cb:4eff:fea6:5b12/64 scope link
+       valid_lft forever preferred_lft forever
