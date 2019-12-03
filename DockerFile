@@ -1,0 +1,50 @@
+FROM ubuntu:bionic-20191029
+
+#Enviroment setup
+ENV TZ=America/Chicago
+
+#create gg user:group
+RUN adduser --system ggc_user
+RUN addgroup --system ggc_group
+
+EXPOSE 22/tcp
+EXPOSE 8883/tcp
+
+#install tools
+RUN apt-get update && apt-get install -y wget
+
+#configure time server
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN date
+
+#install python
+RUN apt-get install -y python3
+
+WORKDIR /tmp
+
+#install java
+# preferably use corretto
+# RUN wget https://d3pxv6yz143wms.cloudfront.net/8.232.09.1/java-1.8.0-amazon-corretto-devel-1.8.0_232.b09-1.x86_64.rpm
+# RUN apt-get update && apt-get install java-common
+RUN apt-get install -y openjdk-8-jre
+
+#Download greengrass installation
+RUN wget https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-linux-armv7l-1.9.4.tar.gz
+
+#Unpack into the root
+RUN tar -xzf greengrass-linux-armv7l-1.9.4.tar.gz -C /
+
+#Download certificates folder
+#RUN wget s3://mb3/certificates.tar.gz
+
+#Unpack into greengrass folder
+#RUN tar -xzf certificates.tar.gz -C /greengrass
+
+#Download Amazon root ca 
+RUN wget -O /greengrass/certs/root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
+
+#Start greengrass
+#RUN /greegrass/gcc/core/greengrassd Start
+
+
+
