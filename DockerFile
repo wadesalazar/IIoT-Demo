@@ -11,7 +11,8 @@ EXPOSE 22/tcp
 EXPOSE 8883/tcp
 
 #install tools
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get install -y wget iputils-ping ntp ntpdate
+RUN ntpdate pool.ntp.org
 
 #configure time server
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -35,13 +36,22 @@ RUN wget https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/g
 RUN tar -xzf greengrass-linux-armv7l-1.9.4.tar.gz -C /
 
 #Download certificates folder
+#Add workflow step to update URL
+#How to perform this securely?
 #RUN wget s3://mb3/certificates.tar.gz
 
 #Unpack into greengrass folder
-#RUN tar -xzf certificates.tar.gz -C /greengrass
+#RUN tar -xzf certificates.tar.gz -C /greengrass/certs/
+
 
 #Download Amazon root ca 
 RUN wget -O /greengrass/certs/root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
+
+RUN mkdir /tmp/ssm
+RUN cd /tmp/ssm
+RUN wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
+RUN dpkg -i amazon-ssm-agent.deb
+RUN sudo systemctl status amazon-ssm-agent
 
 #Start greengrass
 #RUN /greegrass/gcc/core/greengrassd Start
