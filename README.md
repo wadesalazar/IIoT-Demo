@@ -12,6 +12,14 @@ pushes data to S3, DynamoDB, influxDB
 
 
 
+webpage provides a log in for cognito
+
+dist/amazon-cognito-auth.min.js
+
+
+
+
+
 
 
 

@@ -174,3 +174,9 @@ now ip a should show
        valid_lft forever preferred_lft forever
     inet6 fe80::e2cb:4eff:fea6:5b12/64 scope link
        valid_lft forever preferred_lft forever
+
+
+Using AWS system manager to automate some tasks on the BBB 
+( what security implications does this have ) ???
+
+
